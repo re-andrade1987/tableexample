@@ -1,71 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import Table from './table'
 
-class Table extends React.Component {
+const Form = (callback) => {
+  const [values, setValues] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  render() {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>email</th>
-            <th>Sexo</th>
-            <th>Profissão</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    );
-  }
+  const handleChange = (event) => {
+    const auxValues = { ...values };
+    auxValues[event.target.name] = event.target.value;
+    setValues(auxValues);
+  };
+  const handleSubmit = callback => event => {
+    event.preventDefault();
+    setLoading(true);
+    callback();
+    setLoading(false);
+  };
+  const enviarContato = () => {
+    // faça o que for preciso :)
+    console.log(values);
+  };
+
+
+  return (
+    <div className="App">
+      <h1>Dados dos clientes</h1>
+      <form className="form" >
+        <input
+          onChange={handleChange}
+          type="text"
+          name="name"
+          placeholder="Digite o seu nome"
+        />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="email"
+          placeholder="Digite o seu e-mail"
+        />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="message"
+          placeholder="Mensagem"
+        />
+        <button type="submit">{loading ? "Enviando..." : "Enviar"}</button>
+      </form>
+      <Table />
+    </div>
+  );
 }
 
-class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      nome: "",
-      email: '',
-      senha: '',
-    };
-    this.cadastrar = this.cadastrar.bind(this)
-
-  }
-  cadastrar(e) {
-    const { nome, email, senha } = this.state;
-    e.preventDefault();
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h2>Dados Cliente</h2>
-        <form className="form" onSubmit={this.cadastrar}>
-          <label>Nome:</label>
-          <input type="Name" name="Name" value={this.state.nome} onChange={(e) => this.setState({ nome: e.target.value })} />
-          <label>Email:</label>
-          <input type="email" name="email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
-          <label>Senha:</label>
-          <input type="password" name="senha" valeu={this.state.senha} onChange={(e) => this.setState({ senha: e.target.value })} />
-          <button>Cadastrar</button>
-        </form>
-        <div>
-          <h3>{this.state.nome}</h3>
-          <h3>{this.state.email}</h3>
-        </div>
-        <Table />
-      </div>
-    );
-  }
-
-}
-
-export default App;
+export default Form;
