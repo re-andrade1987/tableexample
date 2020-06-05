@@ -9,8 +9,10 @@ const Table = ({ form }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
+                    <p>{selectValue}</p>
+                        {list.map((item, index) => (
+                            <option value={item.id}>{item.name}</option>
+                        ))}
                     </tr>
                 </thead>
                 <tbody>
