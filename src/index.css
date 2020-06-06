@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(124, 63, 180);
-  color: white;
+  color: black;
+  text-align: center;
 }
 
 .form{
